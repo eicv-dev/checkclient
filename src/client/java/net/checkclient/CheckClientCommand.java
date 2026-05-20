@@ -1,4 +1,4 @@
-﻿package net.checkclient;
+package net.checkclient;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
