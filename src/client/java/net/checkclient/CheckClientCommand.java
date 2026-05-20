@@ -1,7 +1,7 @@
 package net.checkclient;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
@@ -12,7 +12,7 @@ public class CheckClientCommand {
 
     public static void registerClient(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(
-            ClientCommandManager.literal("checkclient")
+            ClientCommands.literal("checkclient")
                 .executes(ctx -> {
                     String myBrand = clientBrand();
                     String myEstimate = estimate(myBrand);
