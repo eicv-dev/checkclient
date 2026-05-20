@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
     id 'net.fabricmc.fabric-loom' version "${loom_version}"
     id 'maven-publish'
 }
@@ -8,8 +8,8 @@ group = project.maven_group
 
 base {
     archivesName = project.archives_base_name
-}
 
+}
 repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods, not

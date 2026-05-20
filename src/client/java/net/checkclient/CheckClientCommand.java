@@ -1,12 +1,12 @@
-package net.checkclient;
+﻿package net.checkclient;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 
 public class CheckClientCommand {
 
@@ -17,20 +17,20 @@ public class CheckClientCommand {
                     String myBrand = clientBrand();
                     String myEstimate = estimate(myBrand);
 
-                    var nh = MinecraftClient.getInstance().getNetworkHandler();
-                    String serverBrand = (nh != null && nh.getBrand() != null)
-                        ? nh.getBrand() : "unknown";
+                    var nh = Minecraft.getInstance().getConnection();
+                    String serverBrand = (nh != null && nh.serverBrand() != null)
+                        ? nh.serverBrand() : "unknown";
 
                     ctx.getSource().sendFeedback(
-                        Text.literal("> check client v1.0\n").formatted(Formatting.GOLD)
-                            .append(Text.literal(" Your client:  ").formatted(Formatting.GRAY))
-                            .append(Text.literal(myBrand).formatted(Formatting.WHITE))
-                            .append(Text.literal("  -> ").formatted(Formatting.DARK_GRAY))
-                            .append(Text.literal(myEstimate).formatted(Formatting.GREEN))
-                            .append(Text.literal("\n Server brand: ").formatted(Formatting.GRAY))
-                            .append(Text.literal(serverBrand).formatted(Formatting.WHITE))
-                            .append(Text.literal("  -> ").formatted(Formatting.DARK_GRAY))
-                            .append(Text.literal(estimate(serverBrand)).formatted(Formatting.AQUA)));
+                        Component.literal("> check client v1.0\n").withStyle(ChatFormatting.GOLD)
+                            .append(Component.literal(" Your client:  ").withStyle(ChatFormatting.GRAY))
+                            .append(Component.literal(myBrand).withStyle(ChatFormatting.WHITE))
+                            .append(Component.literal("  -> ").withStyle(ChatFormatting.DARK_GRAY))
+                            .append(Component.literal(myEstimate).withStyle(ChatFormatting.GREEN))
+                            .append(Component.literal("\n Server brand: ").withStyle(ChatFormatting.GRAY))
+                            .append(Component.literal(serverBrand).withStyle(ChatFormatting.WHITE))
+                            .append(Component.literal("  -> ").withStyle(ChatFormatting.DARK_GRAY))
+                            .append(Component.literal(estimate(serverBrand)).withStyle(ChatFormatting.AQUA)));
                     return 1;
                 }));
     }
@@ -58,6 +58,6 @@ public class CheckClientCommand {
         if (lower.contains("purpur"))                                return "Purpur";
         if (lower.contains("velocity") || lower.contains("bungee"))  return "Proxy";
         if (lower.isBlank() || lower.equals("unknown"))              return "Unknown / possibly spoofed";
-        return "Unrecognized (\"" + brand + "\")";
+        return "Unrecognized(\"" + brand + "\")";
     }
 }
